@@ -7,9 +7,15 @@ export const fetchTodo = (data) =>  {
 }
 
 export const updateTodos = (data) => {
-    console.log(data)
     return{
         type: "UPDATE_TODOS",
+        payload: data
+    }
+}
+
+export const deleteTodos = (data) => {
+    return{
+        type: "DELETE_TODOS",
         payload: data
     }
 }

@@ -12,6 +12,9 @@ export const todoList = (state=[],action) => {
             })
             console.log(newState, action.payload)
             return newState;
+        case "DELETE_TODOS":
+            const newTodos = state.filter((item)=>item.id !== action.payload.id);
+            return newTodos;
         default:
             return state;
     }

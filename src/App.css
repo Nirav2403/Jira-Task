@@ -34,10 +34,15 @@
   width: 100%;
 }
 
-.list-container button{
+.create-btn{
+  text-align: end;
+  width: 95%;
+  margin-inline: auto;
+}
+
+.create-btn button{
   background-color: #5e60ce;
-  place-self: center end;
-  margin: 0 6rem;
+  margin: 0 2.5rem;
   padding: 0.6rem 2rem;
   border: none;
   outline: none;
@@ -59,7 +64,7 @@
 .column{
   height: 80%;
   width: 80%;
-  overflow: scroll;
+  overflow: hidden;
 }
 
 .column-header{
@@ -74,6 +79,7 @@
   padding: 0 0.5rem;
   height: 90%;
   width: 100%;
+  overflow: scroll;
   /* overflow: scroll; */
 }
 
@@ -118,14 +124,21 @@
   color: black;
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: max-content 2fr max-content max-content 2fr 3fr;
-  grid-gap: 1rem;
+  grid-template-rows: max-content 2fr max-content max-content max-content max-content 2fr 3fr;
+  grid-gap: 0.5rem;
   padding: 0 1rem;
 }
 
+.form-input{
+  padding: 0 1rem;
+  font-size: 16px;
+}
+
 .modal-container form textarea{
+  padding: 0 1rem;
   height: 8rem;
   width: 100%;
+  font-size: 16px;
 }
 
 .form-btns{
@@ -146,13 +159,23 @@
   color: white;
 }
 
+.form-btns button:disabled{
+  background-color: rgb(63, 63, 71);
+}
+
+.validation{
+  color: red;
+  font-size: 10px;
+  /* padding: 0 0.5rem */
+}
+
 .todo-container{
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  padding: 0.5rem 0.3rem;
+  padding: 1rem 0.5rem;
   margin: 1.5rem 0;
   text-align: start;
   display: grid;
-  grid-template-columns: auto max-content;
+  grid-template-columns: auto max-content max-content;
   grid-gap: 0.5rem;
   place-items: center start;
 }
@@ -166,6 +189,10 @@
   color: white;
   border-radius: 0.3rem;
   font-size: 10px;
+}
+
+#delete-Btn{
+  background-color: blue;
 }
 
 .todo-title, .todo-description{

@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { selectObject } from '../actions/Action';
+import { selectObject,deleteTodos } from '../actions/Action';
 
-const ListView = ({ setShowModal, todos, selectObject, obj }) => {
+const ListView = ({ setShowModal, todos, selectObject, obj, deleteTodos }) => {
     const emptyObj = {
         title: "",
         description: "",
@@ -16,14 +16,20 @@ const ListView = ({ setShowModal, todos, selectObject, obj }) => {
 
     const handleUpdate = (todo) => {
         setShowModal(true);
-        selectObject(todo)
+        selectObject(todo);
+    }
+
+    const handleDelete = (todo) => {
+        deleteTodos(todo);
     }
 
     const todoList = () => {
         return todos.map((todo,index) => {
             return (
                 <div className="todo-container red-body" key={index}>
-                     <p>{todo.title}</p><i className="fa fa-pencil" onClick={()=>handleUpdate(todo)}></i>
+                     <p>{todo.title}</p>
+                     <i className="fa fa-pencil" onClick={()=>handleUpdate(todo)}></i>
+                     <i className="fas fa-trash" id="delete-Btn" onClick={()=>handleDelete(todo)}></i>
                 </div>
             )
         })
@@ -35,7 +41,9 @@ const ListView = ({ setShowModal, todos, selectObject, obj }) => {
                 
                 return (
                     <div className="todo-container blue-body" key={index}>
-                        <p>{todo.title}</p><i className="fa fa-pencil" onClick={()=>selectObject(todo)}></i>
+                        <p>{todo.title}</p>
+                        <i className="fa fa-pencil" onClick={()=>handleUpdate(todo)}></i>
+                        <i className="fas fa-trash" id="delete-Btn" onClick={()=>handleDelete(todo)}></i>
                     </div>
                 )
             }
@@ -48,7 +56,9 @@ const ListView = ({ setShowModal, todos, selectObject, obj }) => {
             if (todo.status === "Done") {
                 return (
                     <div className="todo-container green-body" key={index}>
-                        <p>{todo.title}</p><i className="fas fa-pencil" onClick={()=>selectObject(todo)}></i>
+                        <p>{todo.title}</p>
+                        <i className="fas fa-pencil" onClick={()=>handleUpdate(todo)}></i>
+                        <i className="fas fa-trash" id="delete-Btn" onClick={()=>handleDelete(todo)}></i>
                     </div>
                 )
             }
@@ -58,7 +68,7 @@ const ListView = ({ setShowModal, todos, selectObject, obj }) => {
     return (
         <div className="list-container">
             <h3>Pratical Task</h3>
-            <button onClick={handleCreate}>Create</button>
+            <div className="create-btn"><button onClick={handleCreate}>Create</button></div>
             <div className="field-list-container">
                 <div className="todo-column column">
                     <div className="column-header red-header">To Do</div>
@@ -84,7 +94,8 @@ const ListView = ({ setShowModal, todos, selectObject, obj }) => {
 }
 
 const mapDispatchToProps = {
-    selectObject
+    selectObject,
+    deleteTodos
 }
 
 const mapStateToProps = (state) => {
