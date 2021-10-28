@@ -1,8 +1,8 @@
 import React,{useState} from 'react'
-import { fetchTodo, updateTodos, progressCreateTodos, doneCreateTodos, progressUpdateTodos, doneUpdateTodos } from '../actions/Action';
+import { fetchTodo, updateTodos, progressCreateTodos, doneCreateTodos, progressUpdateTodos, doneUpdateTodos, doneDeleteTodos, progressDeleteTodos } from '../actions/Action';
 import { connect } from 'react-redux';
 
-const Modal = ({setShowModal, fetchTodo, updateTodos, obj, progressCreateTodos, doneCreateTodos, progressUpdateTodos, doneUpdateTodos}) => {
+const Modal = ({setShowModal, fetchTodo, updateTodos, obj, progressCreateTodos, doneCreateTodos, progressUpdateTodos, doneUpdateTodos, doneDeleteTodos, progressDeleteTodos}) => {
     const [dataObject, setdataObject] = useState(obj);
     const [errorMessage, seterrorMessage] = useState({
         titleErr: "",
@@ -78,9 +78,11 @@ const Modal = ({setShowModal, fetchTodo, updateTodos, obj, progressCreateTodos, 
             if(dataObject.status==="Process"){
                 updateTodos(dataObject)
                 progressUpdateTodos(dataObject);
+                doneDeleteTodos(dataObject)
             }else if(dataObject.status==="Done"){
                 updateTodos(dataObject);
                 doneUpdateTodos(dataObject);
+                progressDeleteTodos(dataObject);
             }
         }
         setShowModal(false);
@@ -117,7 +119,9 @@ const mapDispatchToProps = {
     progressCreateTodos, 
     doneCreateTodos, 
     progressUpdateTodos, 
-    doneUpdateTodos
+    doneUpdateTodos, 
+    doneDeleteTodos, 
+    progressDeleteTodos
 }
 
 const mapStateToProps = (state) => {
