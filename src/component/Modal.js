@@ -56,6 +56,11 @@ const Modal = ({setShowModal, fetchTodo, updateTodos, obj}) => {
         inputValidation(name,value);
     }
 
+    const handleCancel = () => {
+        setShowModal(false);
+        document.getElementById('list-display').style.filter = 'blur(0px)'
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if(obj.title === ""){
@@ -64,11 +69,12 @@ const Modal = ({setShowModal, fetchTodo, updateTodos, obj}) => {
             updateTodos(dataObject)
         }
         setShowModal(false);
+        document.getElementById('list-display').style.filter = 'blur(0px)';
     }
 
     return (
         <div className="modal-container">
-            <h2 className="modal-header modal-element">Create Item</h2>
+            <h2 className="modal-header">Create Item</h2>
             <form onSubmit={handleSubmit}>
                 <label className="form-label" htmlFor="title-select">Title:</label>
                 <input type="text" placeholder="&nbsp;" id="title-select" className="form-input" name="title" value={dataObject.title} onChange={(e) => changeData(e)} required />
@@ -82,7 +88,7 @@ const Modal = ({setShowModal, fetchTodo, updateTodos, obj}) => {
                     <option>Done</option>
                 </select>
                 <div className="form-btns">
-                    <button type="button" onClick={()=>setShowModal(false)}>Cancel</button>
+                    <button type="button" onClick={handleCancel}>Cancel</button>
                     <button className="next-btn" type="submit" disabled={disable}>Submit</button>
                 </div>
             </form>

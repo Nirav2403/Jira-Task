@@ -12,11 +12,13 @@ const ListView = ({ setShowModal, todos, selectObject, obj, deleteTodos }) => {
     const handleCreate = () => {
         setShowModal(true);
         selectObject(emptyObj);
+        document.getElementById('list-display').style.filter = 'blur(1.5px)'
     }
 
     const handleUpdate = (todo) => {
         setShowModal(true);
         selectObject(todo);
+        document.getElementById('list-display').style.filter = 'blur(1.5px)'
     }
 
     const handleDelete = (todo) => {
@@ -66,8 +68,8 @@ const ListView = ({ setShowModal, todos, selectObject, obj, deleteTodos }) => {
         })
     }
     return (
-        <div className="list-container">
-            <h3>Pratical Task</h3>
+        <div className="list-container" id="list-display">
+            <h3>Jira Task</h3>
             <div className="create-btn"><button onClick={handleCreate}>Create</button></div>
             <div className="field-list-container">
                 <div className="todo-column column">
