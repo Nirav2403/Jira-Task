@@ -75,6 +75,7 @@
   grid-gap: 1rem;
   place-self: start center;
   place-items: start center ;
+  overflow: hidden;
 }
 
 .column{
@@ -205,7 +206,7 @@
 }
 .todo-container i{
   background-color: red;
-  padding: 0.3rem;
+  padding: 0.5rem;
   color: white;
   border-radius: 0.3rem;
   font-size: 10px;
