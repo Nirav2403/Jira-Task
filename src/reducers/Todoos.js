@@ -30,6 +30,11 @@ export const selectObj = (state=[],action) => {
 }
 
 export const  todoProgressList = (state=[],action) => {
+    const sameTodos = state.map((item)=>{
+        if(item.title===action.payload.title){
+            return true
+        }return false
+    })
     switch (action.type) {
         case "CREATE_TODOS_PROGRESS":
             const newData = {...action.payload,id: state.length + 1}
@@ -39,13 +44,17 @@ export const  todoProgressList = (state=[],action) => {
             if(state.length===0){
                 return [...state,action.payload]
             }else{
-                const newState = state.map((item)=>{
-                    if(item.id===action.payload.id){
-                        return action.payload;
-                    }return item;
-                })
-                console.log(newState,state)
-                return newState;
+                if(sameTodos.includes(true)){
+                    const newState = state.map((item)=>{
+                        if(item.title===action.payload.title){
+                            return action.payload;
+                        }return item;
+                    })
+                    return newState;
+                }else{
+                    return [...state,action.payload]
+                }
+                
             }
         case "DELETE_TODOS_PROGRESS":
             const newTodos = state.filter((item)=>item.id !== action.payload.id);
@@ -56,6 +65,7 @@ export const  todoProgressList = (state=[],action) => {
 }
 
 export const  todoDoneList = (state=[],action) => {
+    
     switch (action.type) {
         case "CREATE_TODOS_DONE":
             const newData = {...action.payload,id: state.length + 1}
