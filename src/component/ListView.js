@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { selectObject,deleteTodos } from '../actions/Action';
+import { selectObject,deleteTodos, progressDeleteTodos, doneDeleteTodos } from '../actions/Action';
 
-const ListView = ({ setShowModal, todos, selectObject, obj, deleteTodos }) => {
+const ListView = ({ setShowModal, todos, selectObject, obj, deleteTodos, progress, done, progressDeleteTodos, doneDeleteTodos  }) => {
     const emptyObj = {
         title: "",
         description: "",
@@ -21,9 +21,7 @@ const ListView = ({ setShowModal, todos, selectObject, obj, deleteTodos }) => {
         document.getElementById('list-display').style.filter = 'blur(1.5px)'
     }
 
-    const handleDelete = (todo) => {
-        deleteTodos(todo);
-    }
+   
 
     const todoList = () => {
         return todos.map((todo,index) => {
@@ -31,21 +29,21 @@ const ListView = ({ setShowModal, todos, selectObject, obj, deleteTodos }) => {
                 <div className="todo-container red-body" key={index}>
                      <p>{todo.title}</p>
                      <i className="fa fa-pencil" onClick={()=>handleUpdate(todo)}></i>
-                     <i className="fas fa-trash" id="delete-Btn" onClick={()=>handleDelete(todo)}></i>
+                     <i className="fas fa-trash" id="delete-Btn" onClick={()=>deleteTodos(todo)}></i>
                 </div>
             )
         })
     }
 
     const todoProcess = () => {
-        return todos.map((todo,index) => {
+        return progress.map((todo,index) => {
             if (todo.status === "Process") {
                 
                 return (
                     <div className="todo-container blue-body" key={index}>
                         <p>{todo.title}</p>
                         <i className="fa fa-pencil" onClick={()=>handleUpdate(todo)}></i>
-                        <i className="fas fa-trash" id="delete-Btn" onClick={()=>handleDelete(todo)}></i>
+                        <i className="fas fa-trash" id="delete-Btn" onClick={()=>progressDeleteTodos(todo)}></i>
                     </div>
                 )
             }
@@ -54,17 +52,14 @@ const ListView = ({ setShowModal, todos, selectObject, obj, deleteTodos }) => {
     }
 
     const todoDone = () => {
-        return todos.map((todo,index) => {
-            if (todo.status === "Done") {
+        return done.map((todo,index) => {
                 return (
                     <div className="todo-container green-body" key={index}>
                         <p>{todo.title}</p>
                         <i className="fas fa-pencil" onClick={()=>handleUpdate(todo)}></i>
-                        <i className="fas fa-trash" id="delete-Btn" onClick={()=>handleDelete(todo)}></i>
+                        <i className="fas fa-trash" id="delete-Btn" onClick={()=>doneDeleteTodos(todo)}></i>
                     </div>
                 )
-            }
-            return null
         })
     }
     return (
@@ -81,13 +76,13 @@ const ListView = ({ setShowModal, todos, selectObject, obj, deleteTodos }) => {
                 <div className="process-column column">
                     <div className="column-header blue-header">In Process</div>
                     <div className="column-body ">
-                        {todos.length !== 0 ? todoProcess() : null}
+                        {progress.length !== 0 ? todoProcess() : null}
                     </div>
                 </div>
                 <div className="done-column column">
                     <div className="column-header green-header">Done</div>
                     <div className="column-body ">
-                        {todos.length !== 0 ? todoDone() : null}
+                        {done.length !== 0 ? todoDone() : null}
                     </div>
                 </div>
             </div>
@@ -97,13 +92,17 @@ const ListView = ({ setShowModal, todos, selectObject, obj, deleteTodos }) => {
 
 const mapDispatchToProps = {
     selectObject,
-    deleteTodos
+    deleteTodos,
+    progressDeleteTodos,
+    doneDeleteTodos
 }
 
 const mapStateToProps = (state) => {
     return {
         todos: state.todo,
-        obj: state.obj
+        obj: state.obj,
+        progress: state.progress,
+        done:state.done
     }
 }
 

@@ -1,8 +1,8 @@
 import React,{useState} from 'react'
-import { fetchTodo, updateTodos } from '../actions/Action';
+import { fetchTodo, updateTodos, progressCreateTodos, doneCreateTodos, progressUpdateTodos, doneUpdateTodos } from '../actions/Action';
 import { connect } from 'react-redux';
 
-const Modal = ({setShowModal, fetchTodo, updateTodos, obj}) => {
+const Modal = ({setShowModal, fetchTodo, updateTodos, obj, progressCreateTodos, doneCreateTodos, progressUpdateTodos, doneUpdateTodos}) => {
     const [dataObject, setdataObject] = useState(obj);
     const [errorMessage, seterrorMessage] = useState({
         titleErr: "",
@@ -37,7 +37,7 @@ const Modal = ({setShowModal, fetchTodo, updateTodos, obj}) => {
                    setdisableBtn({...disableBtn,discriptionError:true})
                }
                else if(value.length < 100){
-                   seterrorMessage({...errorMessage,descriptionErr:"discription must be 100 words"})
+                   seterrorMessage({...errorMessage,descriptionErr:"discription must be 100 characters"})
                    setdisableBtn({...disableBtn,discriptionError:true})
                }
                else{
@@ -63,10 +63,25 @@ const Modal = ({setShowModal, fetchTodo, updateTodos, obj}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log(dataObject)
         if(obj.title === ""){
-            fetchTodo(dataObject);
-        }else{
-            updateTodos(dataObject)
+            if(dataObject.status==="Process"){
+                fetchTodo(dataObject);
+                progressCreateTodos(dataObject);
+            }else if(dataObject.status==="Done"){
+                fetchTodo(dataObject);
+                doneCreateTodos(dataObject);
+            }else{
+                fetchTodo(dataObject);
+            }
+        }else if(obj.title !== ""){
+            if(dataObject.status==="Process"){
+                updateTodos(dataObject)
+                progressUpdateTodos(dataObject);
+            }else if(dataObject.status==="Done"){
+                updateTodos(dataObject);
+                doneUpdateTodos(dataObject);
+            }
         }
         setShowModal(false);
         document.getElementById('list-display').style.filter = 'blur(0px)';
@@ -98,7 +113,11 @@ const Modal = ({setShowModal, fetchTodo, updateTodos, obj}) => {
 
 const mapDispatchToProps = {
     fetchTodo,
-    updateTodos
+    updateTodos,
+    progressCreateTodos, 
+    doneCreateTodos, 
+    progressUpdateTodos, 
+    doneUpdateTodos
 }
 
 const mapStateToProps = (state) => {

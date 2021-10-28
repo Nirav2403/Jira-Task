@@ -37,9 +37,9 @@
 .list-container h3{
   place-self: center;
   color: #072ac8;
-  background: linear-gradient(217deg, rgba(170, 42, 42, 0.8), rgba(255,0,0,0) 70.71%),
+  /* background: linear-gradient(217deg, rgba(170, 42, 42, 0.8), rgba(255,0,0,0) 70.71%),
   linear-gradient(127deg, rgba(55, 156, 55, 0.8), rgba(0,255,0,0) 70.71%),
-  linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
+  linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%); */
   height: 100%;
   width: 100%;
   display: grid;
@@ -90,6 +90,7 @@
   height: 7%;
   width: 100%;
   color: white;
+  font-weight: 900;
 }
 .column-body{
   text-align: center;
@@ -226,7 +227,7 @@
   box-shadow: rgb(170, 50, 50) 0px 3px 8px;
 }
 .blue-body{
-  box-shadow: rgb(43, 50, 153) 0px 3px 8px;
+  box-shadow: rgb(255, 136, 0) 0px 3px 8px;
 }
 .green-body{
   box-shadow: rgb(60, 173, 60) 0px 3px 8px;
@@ -236,7 +237,7 @@
   background-color: red;
 }
 .blue-header{
-  background-color: blue;
+  background-color: orange;
 }
 .green-header{
   background-color: green;
