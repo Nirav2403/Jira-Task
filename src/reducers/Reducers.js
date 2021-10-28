@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
-import { todoList } from "./Todoos";
+import { todoList, selectObj } from "./Todoos";
 
 export default combineReducers({
-    todo: todoList
+    todo: todoList,
+    obj: selectObj
 })

@@ -67,11 +67,11 @@
   padding: 1rem 0;
   height: 10%;
   width: 100%;
-  background-color: #e5e5e5;
+  color: white;
 }
 .column-body{
   text-align: center;
-  padding: 1rem 0;
+  padding: 0 0.5rem;
   height: 90%;
   width: 100%;
   /* overflow: scroll; */
@@ -149,23 +149,47 @@
 .todo-container{
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 0.5rem 0.3rem;
-  margin: 0.5rem 0;
+  margin: 1.5rem 0;
   text-align: start;
+  display: grid;
+  grid-template-columns: auto max-content;
+  grid-gap: 0.5rem;
+  place-items: center start;
 }
 
-.todo-container span{
-  color: red;
-  width: 6rem;
-}
 .todo-container p{
   color: #212529;
-  width: 18.1rem;
-  overflow: hidden;
-
+}
+.todo-container i{
+  background-color: red;
+  padding: 0.3rem;
+  color: white;
+  border-radius: 0.3rem;
+  font-size: 10px;
 }
 
 .todo-title, .todo-description{
   margin-bottom: 0.3rem;
   display: grid;
   grid-template-columns: 0.2fr 2fr;
+}
+
+.red-body{
+  box-shadow: rgb(170, 50, 50) 0px 3px 8px;
+}
+.blue-body{
+  box-shadow: rgb(43, 50, 153) 0px 3px 8px;
+}
+.green-body{
+  box-shadow: rgb(60, 173, 60) 0px 3px 8px;
+}
+
+.red-header{
+  background-color: red;
+}
+.blue-header{
+  background-color: blue;
+}
+.green-header{
+  background-color: green;
 }

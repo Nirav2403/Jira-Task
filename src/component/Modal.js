@@ -1,23 +1,22 @@
 import React,{useState} from 'react'
-import { fetchTodo } from '../actions/Action';
+import { fetchTodo, updateTodos } from '../actions/Action';
 import { connect } from 'react-redux';
 
-const Modal = ({setShowModal, fetchTodo}) => {
-    const [dataObject, setdataObject] = useState({
-        title: "",
-        description: "",
-        status: ""
-    })
+const Modal = ({setShowModal, fetchTodo, updateTodos, obj}) => {
+    const [dataObject, setdataObject] = useState(obj)
+   
     const changeData = (e) => {
-        console.log(e);
         const {name,value} = e.target;
         setdataObject({...dataObject,[name]:value})
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(dataObject);
-        fetchTodo(dataObject);
+        if(obj.title === ""){
+            fetchTodo(dataObject);
+        }else{
+            updateTodos(dataObject)
+        }
         setShowModal(false);
     }
 
@@ -46,9 +45,16 @@ const Modal = ({setShowModal, fetchTodo}) => {
 }
 
 const mapDispatchToProps = {
-    fetchTodo
+    fetchTodo,
+    updateTodos
+}
+
+const mapStateToProps = (state) => {
+    return {
+        obj: state.obj
+    }
 }
 
 
 
-export default connect(null,mapDispatchToProps)(Modal);
+export default connect(mapStateToProps,mapDispatchToProps)(Modal);
