@@ -6,10 +6,12 @@ export const fetchTodo = (data) =>  {
     }
 }
 
-export const updateTodos = (data) => {
+export const updateTodos = (data,prevData) => {
+    console.log(prevData)
     return{
         type: "UPDATE_TODOS",
-        payload: data
+        payload: data,
+        prevPayload: prevData
     }
 }
 

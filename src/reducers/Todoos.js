@@ -7,7 +7,7 @@ export const todoList = (state = [], action) => {
             return [...state, newData];
         case "UPDATE_TODOS":
             const newState = state.map((item) => {
-                if (item.id === action.payload.id) {
+                if (item.title === action.prevPayload.title) {
                     return action.payload;
                 } return item;
             })
@@ -36,14 +36,21 @@ export const todoProgressList = (state = [], action) => {
             const newData = { ...action.payload, id: state.length + 1 }
             return [...state, newData];
         case "UPDATE_TODOS_PROGRESS":
-            return [...state,action.payload]
+            const newState = state.map((item) => {
+                if (item.id === action.payload.id) {
+                    return action.payload;
+                } return item;
+            })
+            return newState;
+            // return [...state,action.payload]
             // if (state.find((item) => item.title === action.payload.title) !== undefined) {
             //     return [...state, action.payload]
             // } else {
             //     return state
             // }
         case "DELETE_TODOS_PROGRESS":
-            const newTodos = state.filter((item) => item.id !== action.payload.id);
+            const newTodos = state.filter((item) => item.title !== action.payload.title);
+            // const newTodos = state.filter((item) => item.id !== action.payload.id);
             return newTodos;
         default:
             return state;
@@ -57,7 +64,13 @@ export const todoDoneList = (state = [], action) => {
             const newData = { ...action.payload, id: state.length + 1 }
             return [...state, newData];
         case "UPDATE_TODOS_DONE":
-            return [...state,action.payload]
+            const newState = state.map((item) => {
+                if (item.id === action.payload.id) {
+                    return action.payload;
+                } return item;
+            })
+            return newState;
+            // return [...state,action.payload]
             // const update = state.find((item) => item.title === action.payload.title)
             // if (update === undefined) {
             //     console.log(update)

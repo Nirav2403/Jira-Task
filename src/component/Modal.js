@@ -1,8 +1,8 @@
-import React,{useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { fetchTodo, updateTodos, progressCreateTodos, doneCreateTodos, progressUpdateTodos, doneUpdateTodos, doneDeleteTodos, progressDeleteTodos } from '../actions/Action';
 import { connect } from 'react-redux';
 
-const Modal = ({setShowModal, fetchTodo, updateTodos, obj, progressCreateTodos, doneCreateTodos, progressUpdateTodos, doneUpdateTodos, doneDeleteTodos, progressDeleteTodos}) => {
+const Modal = ({ setShowModal, fetchTodo, updateTodos, obj, progressCreateTodos, doneCreateTodos, progressUpdateTodos, doneUpdateTodos, doneDeleteTodos, progressDeleteTodos }) => {
     const [dataObject, setdataObject] = useState(obj);
     const [errorMessage, seterrorMessage] = useState({
         titleErr: "",
@@ -14,50 +14,50 @@ const Modal = ({setShowModal, fetchTodo, updateTodos, obj, progressCreateTodos, 
     })
     let disable = Object.values(disableBtn).includes(true)
 
-    const inputValidation = (name,value) => {
+    const inputValidation = (name, value) => {
         switch (name) {
             case "title":
-               if(value === ""){
-                   seterrorMessage({...errorMessage,titleErr:"please! fill the title"})
-                   setdisableBtn({...disableBtn,titleError:true})
-               }
-               else if(value.length < 3){
-                   seterrorMessage({...errorMessage,titleErr:"title must be upto 3 character"})
-                   setdisableBtn({...disableBtn,titleError:true})
-               }
-               else{
-                   seterrorMessage({...errorMessage,titleErr:""})
-                   setdisableBtn({...disableBtn,titleError:false})
-               }
-               return null;
+                if (value === "") {
+                    seterrorMessage({ ...errorMessage, titleErr: "please! fill the title" })
+                    setdisableBtn({ ...disableBtn, titleError: true })
+                }
+                else if (value.length < 3) {
+                    seterrorMessage({ ...errorMessage, titleErr: "title must be upto 3 character" })
+                    setdisableBtn({ ...disableBtn, titleError: true })
+                }
+                else {
+                    seterrorMessage({ ...errorMessage, titleErr: "" })
+                    setdisableBtn({ ...disableBtn, titleError: false })
+                }
+                return null;
             case "description":
                 console.log(value)
-               if(value === ""){
-                   seterrorMessage({...errorMessage,descriptionErr:"please! fill the discription"})
-                   setdisableBtn({...disableBtn,discriptionError:true})
-               }
-               else if(value.length < 10){
-                   seterrorMessage({...errorMessage,descriptionErr:"discription must be 10 characters"})
-                   setdisableBtn({...disableBtn,discriptionError:true})
-               }
-               else{
-                   seterrorMessage({...errorMessage,descriptionErr:""})
-                   setdisableBtn({...disableBtn,discriptionError:false})
-               }
-               return null;
+                if (value === "") {
+                    seterrorMessage({ ...errorMessage, descriptionErr: "please! fill the discription" })
+                    setdisableBtn({ ...disableBtn, discriptionError: true })
+                }
+                else if (value.length < 10) {
+                    seterrorMessage({ ...errorMessage, descriptionErr: "discription must be 10 characters" })
+                    setdisableBtn({ ...disableBtn, discriptionError: true })
+                }
+                else {
+                    seterrorMessage({ ...errorMessage, descriptionErr: "" })
+                    setdisableBtn({ ...disableBtn, discriptionError: false })
+                }
+                return null;
             case "status":
-                if(value!==obj.status){
-                    setdisableBtn({...disableBtn,titleError:false,discriptionError:false})
+                if (value !== obj.status) {
+                    setdisableBtn({ ...disableBtn, titleError: false, discriptionError: false })
                 }
             default:
                 return null;
         }
     }
-   
+
     const changeData = (e) => {
-        const {name,value} = e.target;
-        setdataObject({...dataObject,[name]:value});
-        inputValidation(name,value);
+        const { name, value } = e.target;
+        setdataObject({ ...dataObject, [name]: value });
+        inputValidation(name, value);
     }
 
     const handleCancel = () => {
@@ -68,25 +68,35 @@ const Modal = ({setShowModal, fetchTodo, updateTodos, obj, progressCreateTodos, 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(dataObject)
-        if(obj.title === ""){
-            if(dataObject.status==="Process"){
+        if (obj.title === "") {
+            if (dataObject.status === "Process") {
                 fetchTodo(dataObject);
                 progressCreateTodos(dataObject);
-            }else if(dataObject.status==="Done"){
+            } else if (dataObject.status === "Done") {
                 fetchTodo(dataObject);
                 doneCreateTodos(dataObject);
-            }else{
+            } else {
                 fetchTodo(dataObject);
             }
-        }else if(obj.title !== ""){
-            if(dataObject.status==="Process"){
-                updateTodos(dataObject);
-                progressUpdateTodos(dataObject);
-                doneDeleteTodos(dataObject)
-            }else if(dataObject.status==="Done"){
-                updateTodos(dataObject);
-                doneUpdateTodos(dataObject);
-                progressDeleteTodos(dataObject);
+        } else if (obj.title !== "") {
+            if (dataObject.status === "Process") {
+                if (dataObject.status === obj.status) {
+                    updateTodos(dataObject,obj);
+                    progressUpdateTodos(dataObject);
+                } else if (dataObject.status !== obj.status) {
+                    updateTodos(dataObject,obj);
+                    progressCreateTodos(dataObject);
+                    doneDeleteTodos(dataObject);
+                }
+            } else if (dataObject.status === "Done") {
+                if (dataObject.status === obj.status) {
+                    updateTodos(dataObject,obj);
+                    doneUpdateTodos(dataObject);
+                } else if (dataObject.status !== obj.status) {
+                    updateTodos(dataObject,obj);
+                    doneCreateTodos(dataObject);
+                    progressDeleteTodos(dataObject);
+                }
             }
         }
         setShowModal(false);
@@ -120,11 +130,11 @@ const Modal = ({setShowModal, fetchTodo, updateTodos, obj, progressCreateTodos, 
 const mapDispatchToProps = {
     fetchTodo,
     updateTodos,
-    progressCreateTodos, 
-    doneCreateTodos, 
-    progressUpdateTodos, 
-    doneUpdateTodos, 
-    doneDeleteTodos, 
+    progressCreateTodos,
+    doneCreateTodos,
+    progressUpdateTodos,
+    doneUpdateTodos,
+    doneDeleteTodos,
     progressDeleteTodos
 }
 
@@ -136,4 +146,4 @@ const mapStateToProps = (state) => {
 
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(Modal);
+export default connect(mapStateToProps, mapDispatchToProps)(Modal);
