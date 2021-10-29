@@ -45,6 +45,10 @@ const Modal = ({setShowModal, fetchTodo, updateTodos, obj, progressCreateTodos, 
                    setdisableBtn({...disableBtn,discriptionError:false})
                }
                return null;
+            case "status":
+                if(value!==obj.status){
+                    setdisableBtn({...disableBtn,titleError:false,discriptionError:false})
+                }
             default:
                 return null;
         }
