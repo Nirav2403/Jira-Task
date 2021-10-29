@@ -86,7 +86,7 @@ const Modal = ({ setShowModal, fetchTodo, updateTodos, obj, progressCreateTodos,
                 } else if (dataObject.status !== obj.status) {
                     updateTodos(dataObject,obj);
                     progressCreateTodos(dataObject);
-                    doneDeleteTodos(dataObject);
+                    doneDeleteTodos(obj);
                 }
             } else if (dataObject.status === "Done") {
                 if (dataObject.status === obj.status) {
@@ -95,7 +95,7 @@ const Modal = ({ setShowModal, fetchTodo, updateTodos, obj, progressCreateTodos,
                 } else if (dataObject.status !== obj.status) {
                     updateTodos(dataObject,obj);
                     doneCreateTodos(dataObject);
-                    progressDeleteTodos(dataObject);
+                    progressDeleteTodos(obj);
                 }
             }
         }
