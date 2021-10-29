@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { fetchTodo, updateTodos, progressCreateTodos, doneCreateTodos, progressUpdateTodos, doneUpdateTodos, doneDeleteTodos, progressDeleteTodos } from '../actions/Action';
 import { connect } from 'react-redux';
 
@@ -12,7 +12,7 @@ const Modal = ({setShowModal, fetchTodo, updateTodos, obj, progressCreateTodos, 
         titleError: true,
         discriptionError: true
     })
-    const disable = !Object.values(disableBtn).includes(true)
+    let disable = Object.values(disableBtn).includes(true)
 
     const inputValidation = (name,value) => {
         switch (name) {
@@ -21,8 +21,8 @@ const Modal = ({setShowModal, fetchTodo, updateTodos, obj, progressCreateTodos, 
                    seterrorMessage({...errorMessage,titleErr:"please! fill the title"})
                    setdisableBtn({...disableBtn,titleError:true})
                }
-               else if(value.length < 10){
-                   seterrorMessage({...errorMessage,titleErr:"title must be upto 10 character"})
+               else if(value.length < 3){
+                   seterrorMessage({...errorMessage,titleErr:"title must be upto 3 character"})
                    setdisableBtn({...disableBtn,titleError:true})
                }
                else{
@@ -36,8 +36,8 @@ const Modal = ({setShowModal, fetchTodo, updateTodos, obj, progressCreateTodos, 
                    seterrorMessage({...errorMessage,descriptionErr:"please! fill the discription"})
                    setdisableBtn({...disableBtn,discriptionError:true})
                }
-               else if(value.length < 100){
-                   seterrorMessage({...errorMessage,descriptionErr:"discription must be 100 characters"})
+               else if(value.length < 10){
+                   seterrorMessage({...errorMessage,descriptionErr:"discription must be 10 characters"})
                    setdisableBtn({...disableBtn,discriptionError:true})
                }
                else{
@@ -76,7 +76,7 @@ const Modal = ({setShowModal, fetchTodo, updateTodos, obj, progressCreateTodos, 
             }
         }else if(obj.title !== ""){
             if(dataObject.status==="Process"){
-                updateTodos(dataObject)
+                updateTodos(dataObject);
                 progressUpdateTodos(dataObject);
                 doneDeleteTodos(dataObject)
             }else if(dataObject.status==="Done"){
