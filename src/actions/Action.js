@@ -27,6 +27,7 @@ export const progressCreateTodos = (data) => {
     }
 }
 export const progressUpdateTodos = (data) => {
+    console.log("progress updated data",data)
     return{
         type: "UPDATE_TODOS_PROGRESS",
         payload: data

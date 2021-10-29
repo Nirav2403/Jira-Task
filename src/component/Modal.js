@@ -12,7 +12,7 @@ const Modal = ({setShowModal, fetchTodo, updateTodos, obj, progressCreateTodos, 
         titleError: true,
         discriptionError: true
     })
-    const disable = Object.values(disableBtn).includes(true)
+    const disable = !Object.values(disableBtn).includes(true)
 
     const inputValidation = (name,value) => {
         switch (name) {
